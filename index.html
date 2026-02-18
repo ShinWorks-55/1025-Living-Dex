@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Living Dex — Pokéball Dex</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- Pokéball Intro -->
+  <div id="intro" class="intro">
+    <div class="pokeball" aria-label="Pokeball loading animation">
+      <div class="pokeball__top"></div>
+      <div class="pokeball__mid"></div>
+      <div class="pokeball__bottom"></div>
+      <div class="pokeball__btn"></div>
+      <div class="pokeball__shine"></div>
+    </div>
+    <div class="intro__text">
+      <div class="intro__title">LIVING DEX</div>
+      <div class="intro__sub">Booting Pokéball Dex…</div>
+      <div class="intro__bar"><div id="introBar" class="intro__barFill"></div></div>
+      <div id="introHint" class="intro__hint">Loading Pokédex index…</div>
+    </div>
+  </div>
+
+  <!-- App -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand__mark"></div>
+      <div class="brand__text">
+        <div class="brand__title">Pokéball Dex</div>
+        <div id="progressText" class="brand__sub">—</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="toggleViewBtn" class="btn btn--ghost" type="button">List View</button>
+      <div class="search">
+        <input id="searchInput" placeholder="Search name or # (e.g. 6 or charizard)" />
+      </div>
+      <div class="seg">
+        <button data-filter="all" class="seg__btn is-on" type="button">All</button>
+        <button data-filter="caught" class="seg__btn" type="button">Caught</button>
+        <button data-filter="missing" class="seg__btn" type="button">Missing</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Carousel View -->
+    <section id="carouselView" class="view view--on">
+      <div class="stage">
+        <div class="stage__glow"></div>
+
+        <div class="carouselWrap">
+          <button id="jumpLeft" class="navArrow navArrow--left" aria-label="Previous">‹</button>
+
+          <div id="carousel" class="carousel" aria-label="Pokédex carousel">
+            <div id="track" class="track"></div>
+            <div class="centerLine" aria-hidden="true"></div>
+          </div>
+
+          <button id="jumpRight" class="navArrow navArrow--right" aria-label="Next">›</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel__left">
+            <div class="dexCard">
+              <div class="dexCard__top">
+                <div>
+                  <div id="dexName" class="dexName">—</div>
+                  <div id="dexMeta" class="dexMeta">—</div>
+                </div>
+                <div id="caughtBadge" class="caughtBadge">CAUGHT</div>
+              </div>
+
+              <div class="dexCard__mid">
+                <div class="spriteBox">
+                  <img id="sprite" alt="Pokemon sprite" />
+                  <div class="spriteScan"></div>
+                </div>
+
+                <div class="dexInfo">
+                  <div id="types" class="types"></div>
+                  <div id="genus" class="genus">—</div>
+                  <div id="flavor" class="flavor">—</div>
+
+                  <button id="catchBtn" class="btn btn--catch" type="button">
+                    <span class="btn__shine"></span>
+                    <span id="catchBtnText">CATCH</span>
+                  </button>
+                  <div id="catchTip" class="tip">Saved automatically. Your “caught” list stays even after refresh.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel__right">
+            <div class="encCard">
+              <div class="encCard__title">Where to Catch</div>
+              <div id="gameBtns" class="gameBtns"></div>
+
+              <div class="encBody">
+                <div id="encHeader" class="encHeader">Pick a game to see locations.</div>
+                <div id="encList" class="encList"></div>
+              </div>
+
+              <div class="encFoot">
+                <span class="small">Data: PokéAPI (encounters are missing for some games/Pokémon).</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- List View -->
+    <section id="listView" class="view">
+      <div class="listShell">
+        <div class="listHeader">
+          <div class="listTitle">Missing / Caught List</div>
+          <div class="small">Click a Pokémon to jump to it in the carousel.</div>
+        </div>
+
+        <div id="listGrid" class="listGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Tiny audio (we generate beep/“catch” via WebAudio; no files needed) -->
+  <script src="./app.js"></script>
+</body>
+</html>
