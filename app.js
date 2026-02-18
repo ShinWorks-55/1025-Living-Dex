@@ -199,12 +199,27 @@ function maxScrollX(){
   return Math.max(0, totalW - viewW);
 }
 
-function setTrackX(x){
-  const maxX = maxScrollX();
-  trackX = clamp(x, -maxX, 0);
+ function setTrackX(x) {
+  // Allow the carousel to center BOTH the first and last chip.
+  // This fixes the “can’t reach Bulbasaur” clamp bug.
+
+  const cx = els.carousel.clientWidth / 2;
+  const leftPadding = 22; // keep in sync with your CSS padding used in goToIndex
+
+  const firstCenter = leftPadding + (0 * (CHIP_W + GAP)) + CHIP_W / 2;
+  const lastCenter =
+    leftPadding + ((dexIndex.length - 1) * (CHIP_W + GAP)) + CHIP_W / 2;
+
+  // x needed to center first / last chip
+  const maxX = cx - firstCenter; // usually positive
+  const minX = cx - lastCenter;  // usually negative
+
+  trackX = clamp(x, minX, maxX);
   els.track.style.transform = `translateX(${trackX}px)`;
-  updateCenterStyles();
-  maybeUpdateSelectionFromCenter();
+
+  // keep center-detection / selection logic in sync
+  if (typeof updateCenterStyles === "function") updateCenterStyles();
+  if (typeof maybeUpdateSelectionFromCenter === "function") maybeUpdateSelectionFromCenter();
 }
 
 function centerX(){
